@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace Rendeles_Forms_GAGDJV
 {
@@ -137,7 +138,7 @@ namespace Rendeles_Forms_GAGDJV
 
                 TreeNode node = new TreeNode(termekKategoria.Nev);
                 node.Tag = termekKategoria;
-                treeViewKategoriak.Nodes.Add(node);
+                treeViewKategoriak.SelectedNode.Nodes.Add(node);
 
                 treeViewKategoriak.SelectedNode = node;
             }
@@ -205,6 +206,65 @@ namespace Rendeles_Forms_GAGDJV
 
                 MessageBox.Show("Hiba történt az adatok betöltése során" + ex.Message);
             }
+
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            XDocument xdoc = new XDocument();
+
+            XDeclaration xdecl = new XDeclaration("1.0", "utf-8", "yes");
+            xdoc.Declaration = xdecl;
+
+            XElement root = new XElement("gyökér");
+            xdoc.Add(root);
+
+            //LINQ
+            //Foreach
+            //new XELEMENT
+            //attrib
+            //root.Add(xx)
+            var kat = (from k in _context.TermekKategoria
+                              select k).ToList();
+            var fokategoriak = from k in kat
+                               where k.SzuloKategoriaId == null
+                               select k;
+
+            foreach (var f in fokategoriak)
+            {
+
+                XElement node = new XElement("kategoria");
+                node.SetAttributeValue("nev", f.Nev);
+                node.SetAttributeValue("id", f.KategoriaId);
+                var alkategoriak = from k in kat
+                                   where k.SzuloKategoriaId == f.KategoriaId
+                                   select k;
+                foreach(var al in alkategoriak)
+                {
+                    XElement alKat = new XElement("alkategoria");
+                    alKat.SetAttributeValue("nev", al.Nev);
+                    alKat.SetAttributeValue("id", al.KategoriaId);
+                    node.Add(alKat);
+                }
+
+                root.Add(node); 
+            }
+
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                   
+                    xdoc.Save(saveFileDialog.FileName);
+                    MessageBox.Show("Sikeres mentés");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Hiba a fájl mentése közben: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+
 
         }
     }
