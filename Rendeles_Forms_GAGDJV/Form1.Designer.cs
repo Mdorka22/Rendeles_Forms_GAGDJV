@@ -33,6 +33,7 @@
             ugyfelBindingSource = new BindingSource(components);
             button5 = new Button();
             button1 = new Button();
+            button2 = new Button();
             ((System.ComponentModel.ISupportInitialize)ugyfelBindingSource1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)ugyfelBindingSource).BeginInit();
             SuspendLayout();
@@ -61,11 +62,22 @@
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
+            // button2
+            // 
+            button2.Location = new Point(30, 142);
+            button2.Name = "button2";
+            button2.Size = new Size(231, 41);
+            button2.TabIndex = 7;
+            button2.Text = "UgyfelListaForm";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(button2);
             Controls.Add(button1);
             Controls.Add(button5);
             Name = "Form1";
@@ -80,5 +92,6 @@
         private Button button5;
         private BindingSource ugyfelBindingSource1;
         private Button button1;
+        private Button button2;
     }
 }

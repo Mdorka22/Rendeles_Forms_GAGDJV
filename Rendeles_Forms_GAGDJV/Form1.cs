@@ -23,7 +23,14 @@ namespace Rendeles_Forms_GAGDJV
 
         private void button1_Click(object sender, EventArgs e)
         {
-            UgyfelForm ugyfel=new UgyfelForm();
+            UgyfelForm ugyfel = new UgyfelForm();
+            ugyfel.ShowDialog();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            UgyfelListaForm ugyfelListaForm = new UgyfelListaForm();
+            ugyfelListaForm.ShowDialog();
         }
     }
 }
