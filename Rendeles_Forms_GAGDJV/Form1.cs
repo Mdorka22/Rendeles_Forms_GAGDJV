@@ -32,5 +32,12 @@ namespace Rendeles_Forms_GAGDJV
             UgyfelListaForm ugyfelListaForm = new UgyfelListaForm();
             ugyfelListaForm.ShowDialog();
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            RendelesForm rendelesForm = new RendelesForm();
+            rendelesForm.ShowDialog();
+
+        }
     }
 }
